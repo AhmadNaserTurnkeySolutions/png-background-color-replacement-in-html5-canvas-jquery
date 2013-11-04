@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="./js/jquery.js"></script>
+    <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js">\x3C/script>')</script>
+
+	<script src="./js/modernizr.custom.20062.js"></script>
+
+	<style>
+	
+	body
+	{
+	background:#1e73be;color:white;
+	}
+	
+		#canvas{
+
+	background:url(images/back.jpg) red;
+	border:1px solid #d3d3d3;
+	}
+	
+	</style>
+	
+</head>
+<body>
+
+<a href="http://ahmadnaser.com/" title="AhmadNaser" rel="home">
+			<img src="http://ahmadnaser.com/wp-content/uploads/2013/10/final-logo.png" alt="AhmadNaser" width="264" height="110">
+		</a>
+		
+		<p>Change white color of an image to transparent css3/canvas/html5</p>
+		
+<h3>Original Image</h3>
+<img id="testImage" src='images/x.png' width="2220" height="310" />
+
+<h3>Modified Image</h3>
+<canvas id="canvas" width="2220" height="310" >
+Your browser does not support the HTML5 canvas tag.</canvas>
+
+<script>
+
+
+
+
+
+
+Modernizr.load([
+  {
+    load: './js/jquery.js',
+    complete: function () {
+      if ( !window.jQuery ) {
+            Modernizr.load('js/libs/jquery-1.7.1.min.js');
+      }
+	  
+	  
+	  
+	  
+	  $(function(){
+
+
+var canvas = document.getElementById("canvas"),
+    ctx = canvas.getContext("2d"),
+    image = document.getElementById("testImage");
+	
+
+//ctx.drawImage(image,10,10,2220,310);
+	
+
+//canvas.height = canvas.width = 45;
+//ctx.drawImage(image,0,0);
+  ctx.drawImage(image,10,10,2220,310);  
+var imgd = ctx.getImageData(0, 0, 2220, 310),
+    pix = imgd.data;
+
+for (var i = 0, n = pix.length; i <n; i += 4) {
+    var r = pix[i],
+            g = pix[i+1],
+            b = pix[i+2];
+
+			/*
+			255,255,255 is white
+			if its (pix[i + 3]) white change the alpha to zero so make it transparent
+			*/
+			
+			
+			if(r == 255 && g==255 && b==255){ 
+            // If the green component value is higher than 150
+            // make the pixel transparent
+            pix[i + 3] = 0;
+        }
+			
+        /*if(g > 150){ 
+            // If the green component value is higher than 150
+            // make the pixel transparent
+            pix[i + 3] = 0;
+        }*/
+}
+
+ctx.putImageData(imgd, 0, 0);
+
+
+
+
+
+
+});
+	  
+	  
+	  
+	  
+	  
+	  
+    }
+  },
+  {
+    // This will wait for the fallback to load and
+    // execute if it needs to.
+    load: './js/jquery.js'
+  }
+]);
+
+
+
+
+
+</script>
+
+
+</body>
+</html>
